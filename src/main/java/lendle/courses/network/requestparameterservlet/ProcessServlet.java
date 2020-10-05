@@ -7,6 +7,7 @@ package lendle.courses.network.requestparameterservlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +42,14 @@ public class ProcessServlet extends HttpServlet {
             out.println("<title>Servlet ProcessServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println(request.getParameter("username"));
+            Enumeration<String>names=request.getParameterNames();// Enumeration是簡單的array
+            while(names.hasMoreElements()){
+                String name=names.nextElement();
+                out.println(name+"=");
+                out.print(request.getParameter(name)+"<br/>");//取得name送過來的參數+換行
+                //http://localhost:8080/RequestParameterServlet/process?username=lendle&abc=123
+            }
+            out.println(request.getParameter("username"));//取得user送過來的參數
             out.println("</body>");
             out.println("</html>");
         } finally {
